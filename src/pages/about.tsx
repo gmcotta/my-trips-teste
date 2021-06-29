@@ -1,10 +1,10 @@
 import client from 'graphql/client'
 import { GET_PAGES } from 'graphql/queries'
 
-import AboutTemplate from 'templates/About'
+import PageTemplate from 'templates/Pages'
 
 export default function AboutPage() {
-  return <AboutTemplate />
+  return <PageTemplate />
 }
 
 export async function getStaticProps() {
