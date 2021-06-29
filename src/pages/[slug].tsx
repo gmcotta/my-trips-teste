@@ -1,7 +1,8 @@
 import client from 'graphql/client'
-import { GET_PAGES, GET_PAGE_BY_SLUG } from 'graphql/queries'
 import { GetStaticPaths, GetStaticProps } from 'next'
-import { useRouter } from 'next/dist/client/router'
+import { useRouter } from 'next/router'
+
+import { GET_PAGES, GET_PAGE_BY_SLUG } from 'graphql/queries'
 
 import PageTemplate from 'templates/Pages'
 
