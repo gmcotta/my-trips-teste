@@ -1,0 +1,48 @@
+import client from 'graphql/client'
+import { GetStaticPaths, GetStaticProps } from 'next'
+import { useRouter } from 'next/router'
+
+import { GET_PAGE_BY_SLUG, GET_PLACES } from 'graphql/queries'
+import { GetPlaceBySlugQuery, GetPlacesQuery } from 'graphql/generated/graphql'
+
+import PlacesTemplate, { PlacesTemplateProps } from 'templates/Places'
+
+export default function Place({ place }: PlacesTemplateProps) {
+  const router = useRouter()
+
+  if (router.isFallback) return <h1>Loading...</h1>
+  return <PlacesTemplate place={place} />
+}
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const { places } = await client.request<GetPlacesQuery>(GET_PLACES, {
+    first: 3
+  })
+  const paths = places.map(({ slug }) => {
+    return {
+      params: { slug }
+    }
+  })
+
+  return {
+    paths,
+    fallback: true
+  }
+}
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const { place } = await client.request<GetPlaceBySlugQuery>(
+    GET_PAGE_BY_SLUG,
+    {
+      slug: `${params?.slug}`
+    }
+  )
+
+  if (!place) return { notFound: true }
+
+  return {
+    props: {
+      place
+    }
+  }
+}
