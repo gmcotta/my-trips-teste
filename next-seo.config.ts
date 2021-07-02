@@ -2,7 +2,7 @@ export default {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'http://localhost:3000/',
+    url: 'https://my-trips-gmcotta.vercel.app/',
     site_name: 'My Trips'
   },
   twitter: {
